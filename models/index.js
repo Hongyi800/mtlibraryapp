@@ -3,28 +3,15 @@ require('dotenv').config()
 const mongoose = require("mongoose");
 
 // Connect to MongoDB
-CONNECTION_STRING = "mongodb+srv://singhrr:<password>@singhscluster-h0e35.mongodb.net/test?retryWrites=true&w=majority";
-MONGO_URL = CONNECTION_STRING.replace("<password>",process.env.MONGO_PASSWORD);
+const uri = "mongodb+srv://hgu3:Ghy123456@cluster0-bmldn.mongodb.net/INFO30005?retryWrites=true&w=majority";
 
-console.log(MONGO_URL);
-
-
-
-mongoose.connect(MONGO_URL || "mongodb://localhost/info30005", {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  dbName: "mylibraryapp"
-});
-
-const db = mongoose.connection;
-db.on("error", err => {
-  console.error(err);
-  process.exit(1);
-});
-db.once("open", async () => {
-  console.log("Mongo connection started on " + db.host + ":" + db.port);
+mongoose.connect(uri,
+    function(err){
+    if(!err){
+        console.log('Connected to mongo.');
+    }else{
+        console.log('Failed to connect to mongo!', err);
+    }
 });
 
 require("./author");
